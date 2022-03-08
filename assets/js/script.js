@@ -114,7 +114,7 @@ var fadeOut = function (fadeEl) {
 
     // timer to delay the fade so player has time to read
     var timeOut = setTimeout(function () {
-
+        
         // interval function iterates the opacity value to zero
         fade = setInterval(function () {
             fadeEl.style.opacity = opacity;

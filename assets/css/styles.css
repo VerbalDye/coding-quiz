@@ -11,6 +11,10 @@ header {
     padding: 5px;
 }
 
+header h2 a {
+    color: black;
+}
+
 main {
     position: absolute;
     top: 50%;
@@ -69,13 +73,13 @@ main div button {
 }
 .popup {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 10%;
+    /* left: 50%;
+    transform: translate(-50%, -50%); */
     z-index: 5;
     background-color: white;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-    padding: 15px;
+    padding: 15px 25px;
     border-radius: 5px;
     font-size: 56px;
     font-style: italic;
