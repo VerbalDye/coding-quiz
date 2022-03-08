@@ -62,7 +62,12 @@ var setupQuiz = function () {
 }
 
 var updateQuiz = function() {
-    questionCounter++;
+    if (questionCounter < questions.length - 1) {
+        questionCounter++;
+    } else {
+        finishQuiz();
+        return false;
+    }
     var questionEl = document.querySelector(".question");
     questionEl.innerHTML = "<span>Question " + questions[questionCounter].id + ":</span> " + questions[questionCounter].question;
 
@@ -73,6 +78,43 @@ var updateQuiz = function() {
         };
     };
 };
+
+var finishQuiz = function() {
+    // housekeeping other processes
+    doneQuiz = true;
+    console.log(timeRemaining);
+
+    // find and remove quiz elements
+    var questionEl = document.querySelector("main .question");
+    var answerListEl = document.querySelector("main .answers");
+    questionEl.remove();
+    answerListEl.remove();
+
+    // 
+    var congratsEl = document.createElement("h1");
+    var paragraphEl = document.createElement("p");
+    var formEl = document.createElement("form");
+    var inputEl = document.createElement("input");
+    var labelEl = document.createElement("label")
+    var submitEl = document.createElement("input");
+    congratsEl.textContent = "Congratulations!";
+    congratsEl.className = "question"
+    paragraphEl.textContent = "Your Score Was " + timeRemaining + ".";
+    inputEl.type = "text";
+    inputEl.id = "initials";
+    inputEl.placeholder = "ie. DH";
+    labelEl.htmlFor = "initials";
+    labelEl.textContent = "Enter Initials:";
+    submitEl.type = "submit";
+    submitEl.className = "btn";
+
+    mainEl.appendChild(congratsEl);
+    mainEl.appendChild(paragraphEl);
+    formEl.appendChild(labelEl);
+    formEl.appendChild(inputEl);
+    formEl.appendChild(submitEl);
+    mainEl.append(formEl);
+}
 
 // filters clicks on main to useful values
 var interpretClick = function (event) {
