@@ -1,10 +1,18 @@
 // finds the elements we need
 var startButtonEl = document.getElementById("start-btn");
 var starterTextEl = document.getElementById("start");
+var timerEl = document.querySelector("#timer span");
 var mainEl = document.querySelector("main");
 var popupEl = document.querySelector(".popup")
+
 // counts which question we are on
 var questionCounter = 0;
+
+// global variables declared to prevent functions from overwriting each other
+var fade;
+var opacity;
+var doneQuiz = false;
+var timeRemaining = 60;
 
 // questions array
 var questions = [
@@ -43,6 +51,14 @@ var setupQuiz = function () {
     // appends the newly created elements to the 'main' div
     mainEl.appendChild(questionEl);
     mainEl.appendChild(answerListEl);
+
+    var timer = setInterval(function() {
+        timeRemaining--;
+        timerEl.textContent = timeRemaining;
+        if (timeRemaining == 0 || doneQuiz) {
+            clearInterval(timer);
+        } 
+    }, 1000)
 }
 
 var updateQuiz = function() {
@@ -53,7 +69,6 @@ var updateQuiz = function() {
     for (key in questions[questionCounter]) {
         if (key.includes("answer")) {
             var answersEl = document.getElementById(key);
-            console.log(answersEl);
             answersEl.textContent = questions[questionCounter][key];
         };
     };
@@ -95,13 +110,13 @@ var fadeOut = function (fadeEl) {
     fadeEl.style.opacity = "1";
 
     // counter for opacity
-    var opacity = 1;
+    opacity = 1;
 
     // timer to delay the fade so player has time to read
     var timeOut = setTimeout(function () {
 
         // interval function iterates the opacity value to zero
-        var fade = setInterval(function () {
+        fade = setInterval(function () {
             fadeEl.style.opacity = opacity;
             opacity -= .04;
             
