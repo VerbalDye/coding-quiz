@@ -12,17 +12,18 @@ var questionCounter = 0;
 var fade;
 var opacity;
 var doneQuiz = false;
-var timeRemaining = 60;
+var timeRemaining = 75;
 
 // questions array
 var questions = [
-    { id: "1", question: "What is the circumference of the world?", answer0: "Answer 1", answer1: "Big ole amount of roundness", answer2: "This is huge", answer3: "This is a lot of roundness", correct: "answer3" },
-    { id: "2", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer1" },
-    { id: "3", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
+    { id: "1", question: "How would you get the value of a local stored variable, x?", answer0: "x.getItem", answer1: "localStorage.getItem('x')", answer2: "localStorage.parse(x)", answer3: "localStorage.getItem(x)", correct: "answer1" },
+    { id: "2", question: "What is the technology most often used for version control and collaboration on a codebade?", answer0: "css", answer1: "html", answer2: "js", answer3: "git", correct: "answer3" },
+    { id: "3", question: "What can we use to help troubleshoot a problem with our code?", answer0: "debugger", answer1: "console.log()", answer2: "Chrome DevTools", answer3: "All of the above", correct: "answer3" },
     { id: "4", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
     { id: "5", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
     { id: "6", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
-    { id: "7", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" }
+    { id: "7", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
+    { id: "8", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" }
 ]
 
 // remove the start screen and setup questions elements
@@ -52,6 +53,7 @@ var setupQuiz = function () {
     mainEl.appendChild(questionEl);
     mainEl.appendChild(answerListEl);
 
+    // controls and runs the timer function
     var timer = setInterval(function() {
         timeRemaining--;
         timerEl.textContent = timeRemaining;
@@ -134,24 +136,32 @@ var finishQuiz = function() {
 
 // capture user input and stores to local storage
 var submitScore = function(event) {
+
+    // stops submit from reloading page
     event.preventDefault();
 
-    var initialsValue = document.querySelector("#initials").value;
+    // get the value that the user typed in
+    var initialsValue = document.querySelector("#initials").value.toUpperCase();
 
+    // get the current score values or creates it
     if (localStorage.getItem("scores")) {
         var scores = JSON.parse(localStorage.getItem("scores"));
     } else {
         var scores = [];
     };
     
-    if (initialsValue.length != 2) {
+    // checks to make sure player only typed two letters
+    // /^[a-zA-Z]+$/.test(str) to test if only letters-credit: Borislav Hadzhiev
+    if (initialsValue.length != 2 || !/^[a-zA-Z]+$/.test(initialsValue)) {
         alert("Please type just 2 Letters");
         return false;
     };
 
-    // packages score object
+    // packages score object in local stoage
     scores.push({initial: initialsValue, score: timeRemaining});
     localStorage.setItem("scores",JSON.stringify(scores));
+
+    // sends the user to the high score page
     location.href = "./high-score.html";
 }
 
