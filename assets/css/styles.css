@@ -15,6 +15,10 @@ header h2 a {
     color: black;
 }
 
+header button {
+    font-size: initial;
+}
+
 main {
     position: absolute;
     top: 50%;
@@ -64,13 +68,33 @@ main div {
     text-align: center;
 }
 
-main div button {
+button {
     font-size: 36px;
     text-align: center;
     padding: 10px;
     background-color: #1998ff;
     border-radius: 5px;
 }
+
+.table {
+    margin: 10px;
+    font-size: 48px;
+}
+
+.table table {
+    border-collapse: collapse;
+}
+
+.table td, .table th  {
+    padding: 5px;
+    margin: 0;
+    border: black solid 2px;
+}
+
+.table td {
+    font-size: 40px;
+}
+
 .popup {
     position: fixed;
     top: 10%;

@@ -55,22 +55,30 @@ var setupQuiz = function () {
     var timer = setInterval(function() {
         timeRemaining--;
         timerEl.textContent = timeRemaining;
-        if (timeRemaining == 0 || doneQuiz) {
+        if (timeRemaining <= 0 || doneQuiz) {
             clearInterval(timer);
         } 
     }, 1000)
 }
 
+// funciton to load in new questions as the user answers the last ones
 var updateQuiz = function() {
+
+    // increaments the questions counter
     if (questionCounter < questions.length - 1) {
         questionCounter++;
     } else {
+
+        // if question counter is at max moves user to the end screen 
         finishQuiz();
         return false;
-    }
+    } 
+
+    // grabs the question element and load in the next question
     var questionEl = document.querySelector(".question");
     questionEl.innerHTML = "<span>Question " + questions[questionCounter].id + ":</span> " + questions[questionCounter].question;
 
+    //loops through the answers and places in the new values
     for (key in questions[questionCounter]) {
         if (key.includes("answer")) {
             var answersEl = document.getElementById(key);
@@ -79,10 +87,12 @@ var updateQuiz = function() {
     };
 };
 
+// loads end screen
 var finishQuiz = function() {
+
     // housekeeping other processes
     doneQuiz = true;
-    console.log(timeRemaining);
+    timerEl.textContent = (timeRemaining);
 
     // find and remove quiz elements
     var questionEl = document.querySelector("main .question");
@@ -90,13 +100,15 @@ var finishQuiz = function() {
     questionEl.remove();
     answerListEl.remove();
 
-    // 
+    // creates all new elements
     var congratsEl = document.createElement("h1");
     var paragraphEl = document.createElement("p");
     var formEl = document.createElement("form");
     var inputEl = document.createElement("input");
     var labelEl = document.createElement("label")
     var submitEl = document.createElement("input");
+
+    // loads in element information
     congratsEl.textContent = "Congratulations!";
     congratsEl.className = "question"
     paragraphEl.textContent = "Your Score Was " + timeRemaining + ".";
@@ -108,12 +120,39 @@ var finishQuiz = function() {
     submitEl.type = "submit";
     submitEl.className = "btn";
 
+    // appends elements in the proper order
     mainEl.appendChild(congratsEl);
     mainEl.appendChild(paragraphEl);
     formEl.appendChild(labelEl);
     formEl.appendChild(inputEl);
     formEl.appendChild(submitEl);
     mainEl.append(formEl);
+
+    // adds a listener for the new submit button
+    formEl.addEventListener("submit", submitScore);
+}
+
+// capture user input and stores to local storage
+var submitScore = function(event) {
+    event.preventDefault();
+
+    var initialsValue = document.querySelector("#initials").value;
+
+    if (localStorage.getItem("scores")) {
+        var scores = JSON.parse(localStorage.getItem("scores"));
+    } else {
+        var scores = [];
+    };
+    
+    if (initialsValue.length != 2) {
+        alert("Please type just 2 Letters");
+        return false;
+    };
+
+    // packages score object
+    scores.push({initial: initialsValue, score: timeRemaining});
+    localStorage.setItem("scores",JSON.stringify(scores));
+    location.href = "./high-score.html";
 }
 
 // filters clicks on main to useful values
@@ -133,6 +172,9 @@ var answerValidation = function (targetEl) {
         popupEl.textContent = "Correct!";
     } else {
         popupEl.textContent = "Incorrect!";
+
+        // time is used as score so incorrect answer subtract from the score.
+        timeRemaining -= 15;
     };
     fadeOut(popupEl);
     updateQuiz();
@@ -140,6 +182,9 @@ var answerValidation = function (targetEl) {
 
 // animates the 'correct!' popup to fade out 
 var fadeOut = function (fadeEl) {
+
+    // my attempt to solve the run away opacity problem if you answer questions to fast 
+    // it's not working not sure what to change
     try {
     clearTimeout(timeOut);
     clearInterval(fade);
@@ -171,11 +216,28 @@ var fadeOut = function (fadeEl) {
     }, 500);
 }
 
-// event listeners
-startButtonEl.addEventListener("click", setupQuiz);
-mainEl.addEventListener("mousedown", function(event) {
+// function to catch when the timer reaches zero so
+var waitForEnd = function() {
+    if (timeRemaining > 0) {
+        setTimeout(waitForEnd, 50);
+        return;
+    };
+    timeRemaining = 0;
+    finishQuiz();
+};
+
+// changes the color of an answer when pressed
+// also allows user to continue holding mouse button and move mouse to not choose that answer
+var mouseDownEvent = function(event) {
     if (event.target.matches("li")) {
         event.target.style.background = "#115791";
-    }
-})
+    };
+};
+
+// event listeners
+startButtonEl.addEventListener("click", setupQuiz);
+mainEl.addEventListener("mousedown", mouseDownEvent);
 mainEl.addEventListener("mouseup", interpretClick);
+
+// calling the endfunctions to it starts listening for the end.
+waitForEnd();
