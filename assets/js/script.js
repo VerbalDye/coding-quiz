@@ -19,9 +19,9 @@ var questions = [
     { id: "1", question: "How would you get the value of a local stored variable, x?", answer0: "x.getItem", answer1: "localStorage.getItem('x')", answer2: "localStorage.parse(x)", answer3: "localStorage.getItem(x)", correct: "answer1" },
     { id: "2", question: "What is the technology most often used for version control and collaboration on a codebade?", answer0: "css", answer1: "html", answer2: "js", answer3: "git", correct: "answer3" },
     { id: "3", question: "What can we use to help troubleshoot a problem with our code?", answer0: "debugger", answer1: "console.log()", answer2: "Chrome DevTools", answer3: "All of the above", correct: "answer3" },
-    { id: "4", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
-    { id: "5", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
-    { id: "6", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
+    { id: "4", question: "What is a website we can use to read documentation about HTML, CSS, and Javascript?", answer0: "Mozilla MDN Web Docs", answer1: "Twitter Resources", answer2: "The Google Consortium", answer3: "The Library of Babel", correct: "answer0" },
+    { id: "5", question: "What is the appropriate way to nest HTML element, x, using Javascript?", answer0: "x.textContent = '<h1>Hello</h1>';", answer1: "x.appendChild(<h1>Hello</h1>);", answer2: "x.innerHTML = '<h1>Hello</h1>';", answer3: "x.createElement('<h1>Hello</h1>');", correct: "answer2" },
+    { id: "6", question: "A function of an object is called a _____.", answer0: "practice", answer1: "method", answer2: "function", answer3: "convolution", correct: "answer1" },
     { id: "7", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
     { id: "8", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" }
 ]
@@ -149,7 +149,7 @@ var submitScore = function(event) {
     } else {
         var scores = [];
     };
-    
+
     // checks to make sure player only typed two letters
     // /^[a-zA-Z]+$/.test(str) to test if only letters-credit: Borislav Hadzhiev
     if (initialsValue.length != 2 || !/^[a-zA-Z]+$/.test(initialsValue)) {
