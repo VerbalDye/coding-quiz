@@ -6,4 +6,5 @@ This is a site to test your coding knowledge. Once you reach the end you can sto
 ## Link to live site
 https://verbaldye.github.io/coding-quiz/
 
+## Screenshot of finished site
 ![Screenshot of question](./assets/images/Capture.JPG?raw=true "Question 2")
