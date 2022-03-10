@@ -197,20 +197,24 @@ var fadeOut = function (fadeEl) {
     fadeEl.style.display = "block";
     fadeEl.style.opacity = "1";
 
-    // counter for opacity
-    opacity = 1;
+        // counter for opacity
+        opacity = 1;
 
-    for (var i = 0; i < 25; i++) {
-        setTimeout(function () {
-            fadeEl.style.opacity = opacity;
-            opacity -= .04;
-            console.log(opacity);
+        // timer to delay the fade so player has time to read
+        var timeOut = setTimeout(function () {
             
-        }, 50);
-    }
-    fadeEl.style.display = "none";
-    opacity = 0;
-    fadeEl.style.opacity = opacity;
+            // interval function iterates the opacity value to zero
+            fade = setInterval(function () {
+                fadeEl.style.opacity = opacity;
+                opacity -= .04;
+                
+                // ends itself when it reaches .05 opacity
+                if (opacity <= .05) {
+                    clearInterval(fade);
+                    fadeEl.style.display = "none";
+                }
+            }, 25);
+        }, 500);
 }
 
 // function to catch when the timer reaches zero so
