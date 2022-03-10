@@ -22,8 +22,8 @@ var questions = [
     { id: "4", question: "What is a website we can use to read documentation about HTML, CSS, and Javascript?", answer0: "Mozilla MDN Web Docs", answer1: "Twitter Resources", answer2: "The Google Consortium", answer3: "The Library of Babel", correct: "answer0" },
     { id: "5", question: "What is the appropriate way to nest HTML element, x, using Javascript?", answer0: "x.textContent = '<h1>Hello</h1>';", answer1: "x.appendChild(<h1>Hello</h1>);", answer2: "x.innerHTML = '<h1>Hello</h1>';", answer3: "x.createElement('<h1>Hello</h1>');", correct: "answer2" },
     { id: "6", question: "A function of an object is called a _____.", answer0: "practice", answer1: "method", answer2: "function", answer3: "convolution", correct: "answer1" },
-    { id: "7", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" },
-    { id: "8", question: "What is the quality of roundness?", answer0: "Answer hey 1", answer1: "smol if larger", answer2: "This is huge man", answer3: "This is roundness", correct: "answer0" }
+    { id: "7", question: "Which two are equivalent?", answer0: "false == 0", answer1: "false == non", answer2: "false == !false", answer3: "false == true", correct: "answer0" },
+    { id: "8", question: "What do you use to center an element set to 'width: 40%'?", answer0: "margin: auto 0;", answer1: "padding: 0 auto;", answer2: "margin: 0 auto;", answer3: "padding: auto 0;", correct: "answer2" }
 ]
 
 // remove the start screen and setup questions elements
