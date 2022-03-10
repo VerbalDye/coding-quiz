@@ -54,17 +54,17 @@ var setupQuiz = function () {
     mainEl.appendChild(answerListEl);
 
     // controls and runs the timer function
-    var timer = setInterval(function() {
+    var timer = setInterval(function () {
         timeRemaining--;
         timerEl.textContent = timeRemaining;
         if (timeRemaining <= 0 || doneQuiz) {
             clearInterval(timer);
-        } 
+        }
     }, 1000)
 }
 
 // funciton to load in new questions as the user answers the last ones
-var updateQuiz = function() {
+var updateQuiz = function () {
 
     // increaments the questions counter
     if (questionCounter < questions.length - 1) {
@@ -74,7 +74,7 @@ var updateQuiz = function() {
         // if question counter is at max moves user to the end screen 
         finishQuiz();
         return false;
-    } 
+    }
 
     // grabs the question element and load in the next question
     var questionEl = document.querySelector(".question");
@@ -90,7 +90,7 @@ var updateQuiz = function() {
 };
 
 // loads end screen
-var finishQuiz = function() {
+var finishQuiz = function () {
 
     // housekeeping other processes
     doneQuiz = true;
@@ -135,7 +135,7 @@ var finishQuiz = function() {
 }
 
 // capture user input and stores to local storage
-var submitScore = function(event) {
+var submitScore = function (event) {
 
     // stops submit from reloading page
     event.preventDefault();
@@ -158,8 +158,8 @@ var submitScore = function(event) {
     };
 
     // packages score object in local stoage
-    scores.push({initial: initialsValue, score: timeRemaining});
-    localStorage.setItem("scores",JSON.stringify(scores));
+    scores.push({ initial: initialsValue, score: timeRemaining });
+    localStorage.setItem("scores", JSON.stringify(scores));
 
     // sends the user to the high score page
     location.href = "./high-score.html";
@@ -193,15 +193,6 @@ var answerValidation = function (targetEl) {
 // animates the 'correct!' popup to fade out 
 var fadeOut = function (fadeEl) {
 
-    // my attempt to solve the run away opacity problem if you answer questions to fast 
-    // it's not working not sure what to change
-    try {
-    clearTimeout(timeOut);
-    clearInterval(fade);
-    } catch {
-        console.log("Oops")
-    }
-
     // shows the element to begin with
     fadeEl.style.display = "block";
     fadeEl.style.opacity = "1";
@@ -209,25 +200,21 @@ var fadeOut = function (fadeEl) {
     // counter for opacity
     opacity = 1;
 
-    // timer to delay the fade so player has time to read
-    var timeOut = setTimeout(function () {
-        
-        // interval function iterates the opacity value to zero
-        fade = setInterval(function () {
+    for (var i = 0; i < 25; i++) {
+        setTimeout(function () {
             fadeEl.style.opacity = opacity;
             opacity -= .04;
+            console.log(opacity);
             
-            // ends itself when it reaches .05 opacity
-            if (opacity <= .05) {
-                clearInterval(fade);
-                fadeEl.style.display = "none";
-            }
-        }, 25);
-    }, 500);
+        }, 50);
+    }
+    fadeEl.style.display = "none";
+    opacity = 0;
+    fadeEl.style.opacity = opacity;
 }
 
 // function to catch when the timer reaches zero so
-var waitForEnd = function() {
+var waitForEnd = function () {
     if (timeRemaining > 0) {
         setTimeout(waitForEnd, 50);
         return;
@@ -238,7 +225,7 @@ var waitForEnd = function() {
 
 // changes the color of an answer when pressed
 // also allows user to continue holding mouse button and move mouse to not choose that answer
-var mouseDownEvent = function(event) {
+var mouseDownEvent = function (event) {
     if (event.target.matches("li")) {
         event.target.style.background = "#115791";
     };
