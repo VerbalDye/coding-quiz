@@ -28,7 +28,7 @@ main {
 
 main .question {
     text-align: center;
-    font-size: 60px;
+    font-size: 55px;
 }
 
 main .question span {
@@ -42,11 +42,11 @@ main .answers {
     width: 100%;
     text-align: center;
     list-style: none;
-    font-size: 36px;
+    font-size: 30px;
     display: flex;
     flex-wrap: wrap;
-    flex: 1 1 0px;
-    align-content: center;
+    
+    justify-content: space-between;
 }
 
 main .answers li {
@@ -54,8 +54,9 @@ main .answers li {
     margin: 10px;
     background-color: #1998ff;
     border-radius: 5px;
-    width: 40%;
-    min-height: 100px;
+    width: auto;
+    flex-grow: 5;
+    /* min-height: 100px; */
 }
 
 main p {
@@ -137,7 +138,7 @@ main form .btn {
         top: initial;
         left: initial;
         transform: none;
-        margin: 10%;
+        margin: 5%;
     }
 
     main .answers li {
